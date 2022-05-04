@@ -1,0 +1,49 @@
+{% extends 'internal/main_control.html' %}
+
+{% block control %}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="height:100px"></div>
+<form class="row g-3 mx-auto" style="width: 1200px" method="post">
+    <div class="col-md-12">
+        <label for="ID" class="form-label">Airplane ID</label>
+        <input type="text" class="form-control" id="ID" name="ID" maxlength="5" required>
+    </div>
+  <div class="col-md-6 " >
+    <label for="manufacturer" class="form-label">Manufacturer</label>
+    <input type="text" class="form-control" id="manufacturer" name="manufacturer" maxlength="30" required>
+  </div>
+  <div class="col-md-3 ">
+    <label for="seat_number" class="form-label">Seat Number</label>
+    <input type="number" class="form-control" id="seat_number" name="seat_number" required>
+  </div>
+  <div class="col-md-3 ">
+    <label for="age" class="form-label">Age</label>
+    <input type="number" class="form-control" id="age" name="age" required>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="Create Airplane">
+</form>
+<div class="container" style="height:100px"></div>
+{% for item in data %}
+<div class="row mx-auto" style="width: 1200px">
+    <div class="col">
+        {{item['ID']}}
+    </div>
+    <div class="col">
+        {{item['num_seat']}} seats
+    </div>
+    <div class="col">
+        manufacturer: {{item['manufacturer']}}
+    </div>
+    <div class="col">
+        {{item['age']}} years
+    </div>
+</div>
+<hr class="my-3 mx-auto" style="height:3px; width:1200px">
+
+{% endfor %}
+
+
+{% endblock %}

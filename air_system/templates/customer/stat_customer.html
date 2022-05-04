@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+
+{% block control %}
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto mt-5" style="width:800px" align="center" >
+    <div class=" badge bg-success text-wrap " style="width: 20rem;">
+        <h1 class="display-1">${{total_cost}}</h1>
+    </div>
+    <p class="fs-4 text-muted">total cost since <strong>{{start_date}}</strong> to <strong>{{end_date}}</strong></p>
+</div>
+
+<table class="table mx-auto" style="width:800px">
+    <thead>
+        <tr>
+          <th scope="col">Month</th>
+          <th scope="col">Cost</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in month_cost%}
+        <tr>
+          <th scope="row">{{item[0]}}</th>
+          <td>${{item[1]}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+
+<div style="height:75px"></div>
+
+    <form class="row mx-auto" method="get" style="width:800px">
+        <div class="col-md-6 mb-3">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control" name="start_date" id="start_date" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="end_date" class="form-label">End Date</label>
+            <input type="date" class="form-control" name="end_date" id="end_date" required>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Check">
+    </form>
+
+
+{% endblock %}

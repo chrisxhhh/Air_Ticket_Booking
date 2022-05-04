@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{url_for('hello')}}">onAIR</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('internal.main_control')}}">Flight</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('internal.airplane')}}">Airplane</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('internal.airport')}}">Airport</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Stat
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{url_for('internal.user_stat')}}">customer</a></li>
+            <li><a class="dropdown-item" href="{{url_for('internal.revenue_stat')}}">revenue</a></li>
+          </ul>
+        </li>
+
+      </ul>
+      <span class="navbar-text me-2">
+        {{username}}
+      </span>
+
+        <a href= "{{url_for('auth.logout')}}">
+          <button type="button"> log out </button></a>
+
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block control %}
+<div style="height:50px"></div>
+<div class="row mx-auto align-items-center" style="width: 1000px">
+    <div class="col-md-10">
+        <form class="row mx-auto align-items-center"  method="get">
+            <input class="form-control" name="filter" type="hidden" value="true">
+            <div class="col-md-3">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input class="form-control" id="start_date" name="start_date" type="date">
+            </div>
+            <div class="col-md-3">
+                <label for="end_date" class="form-label">End Date</label>
+                <input class="form-control" id="end_date" name="end_date" type="date">
+            </div>
+            <div class="col-md-2">
+                <label for="from" class="form-label">From</label>
+                <input class="form-control" id="from" name="from" type="text">
+            </div>
+            <div class="col-md-2">
+                <label for="to" class="form-label">To</label>
+                <input class="form-control" id="to" name="to" type="text">
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary " value="Filter">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-secondary my-auto" role="button" href="{{url_for('internal.create_flight')}}">Add Flight</a>
+    </div>
+</div>
+<div style="height:50px"></div>
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="container mx-auto" >
+    {% for item in data %}
+        <div class="row gy-2 gx-3 " style="height:75px">
+            <div class="col-md-auto ">
+                <div clas="row">
+                    <div class="row">
+                        <h6 class="text-muted m-auto">{{item['dept_date']}}</h6>
+                    </div>
+                    <div class="row">
+                        <h3 class=" m-auto">{{item['dept_time']}}</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-auto m-auto">
+                <h1 class="display-4">{{item['dept_airport']}}</h1>
+            </div>
+            <div class="col-md-5 mx-auto ">
+                <div class="row py-0 ">
+                    <p class="text-center align-bottom pb-0 mb-0 display-6">{{item['flight_num']}}</p>
+                </div>
+                <div class="row ">
+                    <hr style="margin-bottom:0">
+                </div>
+                <div class="row py-0">
+                    <p class="text-muted text-center pt-0 fs-6">{{item['airline']}}</p>
+                </div>
+            </div>
+            <div class="col-md-auto m-auto">
+                <h1 class="display-4">{{item['arr_airport']}}</h1>
+            </div>
+
+            <div class="col-md-1 m-auto">
+            {% if item['status'] == "delay"%}
+
+                <div class="badge bg-warning text-wrap" style="width: 4rem;">
+                    {{item['status']}}
+                </div>
+            {% elif item['status'] == "canceled"%}
+                <div class="badge bg-danger text-dark text-wrap" style="width: 4rem;">
+                    {{item['status']}}
+                </div>
+            {% else %}
+                <div class="badge bg-success text-wrap" style="width: 4rem;">
+                    {{item['status']}}
+                </div>
+            {%endif%}
+            </div>
+
+            <div class="col-md-1 m-auto">
+                <div class="row">
+                    ECO: {{item['capacity_class'][0]}}
+                </div>
+                <div class="row">
+                    BUS: {{item['capacity_class'][1]}}
+                </div>
+                <div class="row">
+                    FIR: {{item['capacity_class'][2]}}
+                </div>
+            </div>
+            <div class="col-md-1 m-auto">
+                <div class="row mb-0">
+                    <p class="fs-5 align-bottom pb-0 mb-0"> ${{item['base_price']}}</p><br>
+                </div>
+                <div class="row">
+                    <a href= "{{url_for('internal.show_detail', num=item['search_order'])}}">
+                    <button class="btn btn-outline-primary btn-sm" type="button pt-0 mt-0">VIEW</button></a>
+                </div>
+            </div>
+
+        </div>
+        <hr class="my-3" style="height:3px">
+    {%endfor%}
+    </div>
+
+{% endblock %}

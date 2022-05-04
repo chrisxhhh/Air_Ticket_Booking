@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block control %}{% endblock %}
+
+{% block content %}
+<div style="height:75px"></div>
+
+<form method="post" style="width:800px" class="mx-auto ">
+
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="rate">Score</label>
+        <select class="form-select" id="rate" name="rate" required>
+            <option selected>Choose...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment here" maxlength="255" style="height:150px"></textarea>
+        <label for="comment" >Comment (max 255 characters)</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary float-end">Submit</button>
+
+</form>
+<div style="height:50px"></div>
+
+{% if rate != None %}
+<div style="width:800px" class="mx-auto ">
+    <p class="fs-5">Your Comment Before:</p>
+    <p class="fs-4">rate: {{rate}}</p>
+    <p class="fs-6">comment : <br>{{comment}}</p>
+{% endif %}
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'internal/main_control.html' %}
+
+{% block control %}{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto mt-5" style="width:800px" align="center" >
+    <div class=" badge bg-success text-wrap " style="width: 20rem;">
+        <h1 class="display-1">{{loyal['name']}}</h1>
+    </div>
+    <p class="fs-4 text-muted">Customer of the Year</p>
+    <p class="fs-5 text-muted">who purchased {{loyal['num']}} times in last 365 days</p>
+</div>
+
+
+
+<div class="mx-auto" style="width:800px">
+    {% for item in customer_with_flight %}
+    <p class="lead mb-0 mt-5">
+        customer with email <strong>{{item[0]}}</strong>:
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Flight #</th>
+          <th scope="col">Departure Date</th>
+          <th scope="col">Departure Time</th>
+          <th scope="col">Travel Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in item[1]%}
+        <tr>
+          <th scope="row">{{ticket['flight_num']}}</th>
+          <td>{{ticket['dept_date']}}</td>
+          <td>{{ticket['dept_time']}}</td>
+          <td>{{ticket['travel_class']}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    {% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}

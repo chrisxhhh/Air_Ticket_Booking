@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" class="row mx-auto g-3" style="width:800px">
+    <div class="col-md-6">
+      <label for="email" class="form-label">email</label>
+      <input class="form-control" name="email" id="email" maxlength="30" type="email" required>
+    </div>
+    <div class="col-md-6">
+    <label for="password" class="form-label">password</label>
+    <input class="form-control" type="password" name="password" id="password" required>
+    </div>
+    <div class="col-md-3">
+    <label for="username" class="form-label">username</label>
+    <input class="form-control" name="username" id="username" maxlength="20" required>
+    </div>
+    <div class="col-md-3">
+    <label for="DOB" class="form-label">Date of Birth</label>
+    <input type="date" class="form-control" name="DOB" id="DOB" required>
+    </div>
+    <div class="col-md-6">
+    <label for="phone_num" class="form-label">Phone Number</label>
+    <input class="form-control" name="phone_num" id="phone_num" maxlength="15" required>
+    </div>
+    <div class="col-md-6">
+    <label for="passport_num" class="form-label">Passport Number</label>
+    <input class="form-control" name="passport_num" id="passport_num" maxlength="64" required>
+    </div>
+    <div class="col-md-3">
+    <label for="passport_expir_date" class="form-label">Passport Expire Date</label>
+    <input type="date" class="form-control" name="passport_expir_date" id="passport_expir_date" required>
+    </div>
+    <div class="col-md-3">
+    <label for="passport_country" class="form-label">Passport Country</label>
+    <input class="form-control" name="passport_country" id="passport_country" maxlength="20" required>
+    </div>
+
+    <div class="col-md-2">
+    <label for="building_num" class="form-label">Building #</label>
+    <input class="form-control" name="building_num" id="building_num" maxlength="10" required>
+    </div>
+    <div class="col-md-6">
+    <label for="street" class="form-label">Street</label>
+    <input class="form-control" name="street" id="street" maxlength="20" required>
+    </div>
+    <div class="col-md-2">
+    <label for="city" class="form-label">City</label>
+    <input class="form-control" name="city" id="city" maxlength="10" required>
+    </div>
+    <div class="col-md-2">
+    <label for="state" class="form-label">State</label>
+    <input class="form-control" name="state" id="state" maxlength="2" required>
+    </div>
+
+
+    <input class="btn btn-primary"  type="submit" value="Register">
+    {% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+  </form>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'internal/main_control.html' %}
+
+{% block control %}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="height:200px"></div>
+<form class="row g-3 mx-auto" style="width: 1200px" method="post">
+    <div class="col-md-6">
+        <label for="flight_num" class="form-label">Flight number</label>
+        <input type="text" class="form-control" id="flight_num" name="flight_num" maxlength="10" required>
+    </div>
+  <div class="col-md-3">
+    <label for="dept_airport" class="form-label">Departure airport</label>
+    <input type="text" class="form-control" id="dept_airport" name="dept_airport" maxlength="5" required>
+  </div>
+  <div class="col-md-3">
+    <label for="arr_airport" class="form-label">Arrival airport</label>
+    <input type="text" class="form-control" id="arr_airport" name="arr_airport" maxlength="5" required>
+  </div>
+  <div class="col-md-3">
+    <label for="dept_date" class="form-label">Departure date</label>
+    <input type="date" class="form-control"  id="dept_date" name="dept_date"  required>
+  </div>
+  <div class="col-md-3">
+    <label for="dept_time" class="form-label">Departure time</label>
+    <input type="time" class="form-control" id="dept_time" name="dept_time" required>
+  </div>
+  <div class="col-md-3">
+    <label for="arr_date" class="form-label">Arrive date</label>
+    <input type="date" class="form-control" id="arr_date" name="arr_date" required>
+  </div>
+  <div class="col-md-3">
+    <label for="arr_time" class="form-label">Arrival time</label>
+    <input type="time" class="form-control" id="arr_time" name="arr_time" required>
+  </div>
+  <div class="col-md-2">
+    <label for="base_price" class="form-label">Base Price</label>
+    <input type="number" class="form-control" id="base_price" name="base_price" required>
+  </div>
+  <div class="col-md-5">
+    <label for="airplane_airline" class="form-label">Airplane Owned by </label>
+    <input type="text" class="form-control" id="airplane_airline" name="airplane_airline" maxlength="30" required>
+  </div>
+  <div class="col-md-5">
+    <label for="airplane_id" class="form-label">Airplane ID</label>
+    <input type="text" class="form-control" id="airplane_id" name="airplane_id" maxlength="5" required>
+  </div>
+  <input type="submit" class="btn btn-primary" value="create">
+
+</form>
+
+{% endblock %}

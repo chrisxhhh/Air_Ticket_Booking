@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+  {% block content %}
+<div class="container" style="height:200px"></div>
+
+<form class="mx-auto"  method="post" style="width: 800px">
+    <div class="row gy-2 gx-3" >
+      <div class="col-12">
+        <input class="form-check-input" type="checkbox" id="ifRoundTrip" name="ifRoundTrip" onclick="disableReturnDate()">
+        <label class="form-check-label" for="ifRoundTrip">
+          round trip?
+        </label>
+      </div>
+      <div class="col-8">
+        <input type="text" class="form-control" placeholder="From" name="from" required>
+      </div>
+      <div class="col-4" >
+        <input type="date" class="form-control" id="departureDate" name="departureDate" required>
+      </div>
+      <div class="col-8">
+        <input type="text" class="form-control" placeholder="To" name="to" required>
+      </div>
+      <div class="col-4" >
+        <input type="date" class="form-control" id="returnDate" name="returnDate" disabled required>
+      </div>
+      <div class="d-grid col-12">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+</form>
+
+<script>
+  function disableReturnDate(){
+    var check = document.getElementById("ifRoundTrip")
+    if (check.checked){
+      document.getElementById("returnDate").disabled = false
+    }
+    else {
+      document.getElementById("returnDate").disabled = true
+    }
+
+  }
+</script>
+  {% endblock %}

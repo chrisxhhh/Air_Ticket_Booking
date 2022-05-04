@@ -1,0 +1,146 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container" style="height:75px"></div>
+<div class="row gy-2 gx-3 " style="height:75px">
+    <div class="col-md-1">
+        <div class="row">
+            <div class="row">
+                <h6 class="text-muted m-auto">{{item['dept_date']}}</h6>
+            </div>
+            <div class="row">
+                <h3 class=" m-auto">{{item['dept_time']}}</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-auto m-auto">
+        <h1 class="display-4">{{item['dept_airport']}}</h1>
+    </div>
+    <div class="col-md-5 mx-auto ">
+        <div class="row py-0 ">
+            <p class="text-center align-bottom pb-0 mb-0 display-6">{{item['flight_num']}}</p>
+        </div>
+        <div class="row ">
+            <hr style="margin-bottom:0">
+        </div>
+        <div class="row py-0">
+            <p class="text-muted text-center pt-0 fs-6">{{item['airline']}}</p>
+        </div>
+    </div>
+    <div class="col-md-auto m-auto">
+        <h1 class="display-4">{{item['arr_airport']}}</h1>
+    </div>
+    <div class="col-md-1">
+        <div class="row">
+            <div class="row">
+                <h6 class="text-muted m-auto">{{item['arr_date']}}</h6>
+            </div>
+            <div class="row">
+                <h3 class=" m-auto">{{item['arr_time']}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 m-auto">
+    {% if item['status'] == "delay"%}
+
+        <div class="badge bg-warning text-wrap" style="width: 4rem;">
+            {{item['status']}}
+        </div>
+    {% elif item['status'] == "canceled"%}}
+        <div class="badge bg-danger text-dark text-wrap" style="width: 4rem;">
+            {{item['status']}}
+        </div>
+    {% else %}
+        <div class="badge bg-success text-wrap" style="width: 4rem;">
+            {{item['status']}}
+        </div>
+    {%endif%}
+    </div>
+
+    <div class="col-md-1 m-auto">
+        <p class="display-5 align-bottom pb-0 mb-0"> ${{item['base_price']}}</p><br>
+
+    </div>
+</div>
+<div style="height:75px"></div>
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="col mx-auto">
+            <p class="fs-1 text-center" >Economy</p>
+        </div>
+        <div class="col mx-auto text-center">
+            <span class="badge text=wrap fs-5" style="width:6rem;background-color:#69BE94">${{item['price'][0]}}</span>
+        </div>
+        <div class="col mx-auto text-center">
+            {{item['capacity_class'][0]}}
+        </div>
+
+    </div>
+    <div class="col-md-4 mx-auto">
+        <div class="col mx-auto">
+            <p class="fs-1 text-center" >Business</p>
+        </div>
+        <div class="col mx-auto text-center">
+            <span class="badge  text=wrap fs-5" style="width:6rem;background-color:#0085c3">${{item['price'][1]}}</span>
+        </div>
+        <div class="col mx-auto text-center">
+            {{item['capacity_class'][1]}}
+        </div>
+    </div>
+    <div class="col-md-4 mx-auto">
+        <div class="col mx-auto">
+            <p class="fs-1 text-center" >First</p>
+        </div>
+        <div class="col mx-auto text-center">
+            <span class="badge text=wrap fs-5" style="width:6rem;background-color:#D4AF37">${{item['price'][2]}}</span>
+        </div>
+        <div class="col mx-auto text-center">
+            {{item['capacity_class'][2]}}
+        </div>
+    </div>
+</div>
+
+<form class="row g-3 mx-auto mt-5" method="post" style="width:800px">
+    <div class="col-md-3">
+        <label for="class" class="form-label">Class</label>
+        <select class="form-select form-select-md" aria-label=".form-select-md" name="class"
+                id="class" required>
+          {%for class in item['can_buy']%}
+            <option>{{class}}</option>
+          {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label for="card_type" class="form-label">Card Type</label>
+        <select class="form-select form-select-md" aria-label=".form-select-md" name="card_type" id="card_type">
+            <option>Debit</option>
+            <option>Credit</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="card_num" class="form-label">Card Number</label>
+        <input type="number" class="form-control" name="card_num" id="card_num"  maxlength="16" required>
+    </div>
+    <div class="col-md-6">
+        <label for="name_on_card" class="form-label">Name on Card</label>
+        <input type="text" class="form-control" name="name_on_card" id="name_on_card" maxlength="20" required>
+    </div>
+    <div class="col-md-6">
+        <label for="expire_date" class="form-label">Expiration Month</label>
+        <div class="input-group" id="expire_date" >
+          <input autocomplete="off" maxlength="2" pattern="[0-9]*" type="text" class="form-control" placeholder="MM" name="month"/>
+          <span class="input-group-text">/</span>
+          <input autocomplete="off" maxlength="2" pattern="[0-9]*" type="text" class="form-control" placeholder="YY" name="year"/>
+        </div>
+
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Buy">
+
+</form>
+
+
+
+{% endblock %}

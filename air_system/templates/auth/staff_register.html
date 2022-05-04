@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Staff Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form class="row mx-auto" style="width:800px" method="post">
+    <div class="col-md-6">
+      <label for="airline" class="form-label">airline</label>
+      <input class="form-control" name="airline" id="airline" maxlength="30" required>
+    </div>
+    <div class="col-md-6">
+      <label for="username" class="form-label">username</label>
+      <input class="form-control" name="username" id="username" maxlength="10" required>
+    </div>
+    <div class="col-md-6">
+      <label for="password" class="form-label">password</label>
+      <input class="form-control" type="password" name="password" id="password" required>
+    </div>
+    <div class="col-md-6">
+      <label for="first_name" class="form-label">first_name</label>
+      <input class="form-control" name="first_name" id="first_name" maxlength="10" required>
+    </div>
+    <div class="col-md-6">
+      <label for="last_name" class="form-label">last_name</label>
+      <input class="form-control" name="last_name" id="last_name" maxlength="10" required>
+    </div>
+    <div class="col-md-6">
+      <label for="DOB" class="form-label">DOB</label>
+      <input class="form-control" type="date" name="DOB" id="DOB" required>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Numbers</label>
+      <textarea class="form-control" id="phone" name="phone" rows="3"></textarea>
+      <div id="phone_help" class="form-text">Please enter one phone number per line</div>
+    </div>
+    <button class="btn btn-primary" type="submit">register</button>
+
+
+    {% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+  </form>
+  {{ super() }}
+{% endblock %}

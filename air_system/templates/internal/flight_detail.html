@@ -1,0 +1,177 @@
+{% extends 'internal/main_control.html' %}
+
+{% block control %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="row gy-2 gx-3 mt-5" style="height:75px">
+            <div class="col-md-auto ">
+                <div clas="row">
+                    <div class="row">
+                        <h6 class="text-muted m-auto">{{item['dept_date']}}</h6>
+                    </div>
+                    <div class="row">
+                        <h3 class=" m-auto">{{item['dept_time']}}</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-auto m-auto">
+                <h1 class="display-4">{{item['dept_airport']}}</h1>
+            </div>
+            <div class="col-md-5 mx-auto ">
+                <div class="row py-0 ">
+                    <p class="text-center align-bottom pb-0 mb-0 display-6">{{item['flight_num']}}</p>
+                </div>
+                <div class="row ">
+                    <hr style="margin-bottom:0">
+                </div>
+                <div class="row py-0">
+                    <p class="text-muted text-center pt-0 fs-6">{{item['airline']}}</p>
+                </div>
+            </div>
+            <div class="col-md-auto m-auto">
+                <h1 class="display-4">{{item['arr_airport']}}</h1>
+            </div>
+            <div class="col-md-auto ">
+                <div clas="row">
+                    <div class="row">
+                        <h6 class="text-muted m-auto">{{item['arr_date']}}</h6>
+                    </div>
+                    <div class="row">
+                        <h3 class=" m-auto">{{item['arr_time']}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1 m-auto">
+            {% if item['status'] == "delay"%}
+
+                <div class="badge bg-warning text-wrap" style="width: 4rem;">
+                    {{item['status']}}
+                </div>
+            {% elif item['status'] == "canceled"%}
+                <div class="badge bg-danger text-dark text-wrap" style="width: 4rem;">
+                    {{item['status']}}
+                </div>
+            {% else %}
+                <div class="badge bg-success text-wrap" style="width: 4rem;">
+                    {{item['status']}}
+                </div>
+            {%endif%}
+            </div>
+
+            <div class="col-md-1 m-auto">
+                <div class="row">
+                    ECO: {{item['capacity_class'][0]}}
+                </div>
+                <div class="row">
+                    BUS: {{item['capacity_class'][1]}}
+                </div>
+                <div class="row">
+                    FIR: {{item['capacity_class'][2]}}
+                </div>
+            </div>
+            <div class="col-md-1 m-auto">
+                <p class="fs-5 align-bottom pb-0 mb-0"> ${{item['base_price']}}</p>
+
+            </div>
+        </div>
+
+
+<form class="row g-3 mx-auto mt-5" method="post" style="width:800px" >
+    <div class="col-md-8">
+        <select class="form-select form-select-md" aria-label=".form-select-md example" name="new_status"
+                id="status_select" onchange="disable_datetime_form()">
+          <option selected>update status</option>
+          <option value="on-time">on-time</option>
+          <option value="delay">delay</option>
+          <option value="canceled">cancel</option>
+        </select>
+    </div>
+    <div class="col-md-4 d-grid">
+        <input  type="submit" class="btn btn-primary" value="update">
+    </div>
+    <div class="col-md-3">
+        <label for="dept_date" class="form-label">Departure date</label>
+        <input type="date" class="form-control"  id="dept_date" name="dept_date" required>
+      </div>
+      <div class="col-md-3">
+        <label for="dept_time" class="form-label">Departure time</label>
+        <input type="time" class="form-control" id="dept_time" name="dept_time" required>
+      </div>
+      <div class="col-md-3">
+        <label for="arr_date" class="form-label">Arrive date</label>
+        <input type="date" class="form-control" id="arr_date" name="arr_date" required>
+      </div>
+      <div class="col-md-3">
+        <label for="arr_time" class="form-label">Arrival time</label>
+        <input type="time" class="form-control" id="arr_time" name="arr_time" required>
+    </div>
+</form>
+
+<div style="height:50px"></div>
+<div style="width:800px" class="mx-auto row ">
+    <div class="col-md-12">
+        <p class="fs-3">Avg Score: {{avg_rate}}</p>
+    </div>
+    {% for item in comment%}
+    {% if item['rate'] != None %}
+    <div class="col-md-2" style="border-right-style: dotted;">
+        <h6 class="text-muted text-center">rate</h6>
+        <p class="fs-6 text-center">{{item['rate']}}</p>
+    </div>
+    <div class="col-md-10">
+        <p class="fs-6 ">{{item['comment']}}</p>
+    </div>
+    <div class="col-md-12 my-auto">
+        <hr>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div style="width:800px" class="mx-auto  ">
+    <p class="lead mb-0 mt-5">
+        customer in this flight
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in customer_lst%}
+            <tr>
+              <th scope="row">{{person['email']}}</th>
+              <td>{{person['name']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+  function disable_datetime_form(){
+    var check = document.getElementById("status_select")
+    if (check.value == "canceled"){
+        document.getElementById("dept_date").disabled = true
+        document.getElementById("dept_time").disabled = true
+        document.getElementById("arr_date").disabled = true
+        document.getElementById("arr_time").disabled = true
+    }
+    else {
+        document.getElementById("dept_date").disabled = false
+        document.getElementById("dept_time").disabled = false
+        document.getElementById("arr_date").disabled = false
+        document.getElementById("arr_time").disabled = false
+    }
+
+  }
+</script>
+{% endblock %}
